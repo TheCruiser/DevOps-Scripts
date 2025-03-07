@@ -41,7 +41,11 @@ put up in this format < ./script orgname reponame >
 # ansible_manage
 ---------------------------------------------------------------------------------------------
 
-### Create 2 EC2 instances (in production scenario, one device will have the ansible script (let's consider it as A) and the other one on which it will be applied (let's consider it as B))
+### Install Ansible & Create 2 EC2 instances (in production scenario, one device will have the ansible script (let's consider it as A) and the other one on which it will be applied (let's consider it as B))
+
+```
+sudo apt install ansible
+```
 
 ### Log into A first and try to SSH to B
 
@@ -85,4 +89,23 @@ ubuntu@ip-172-31-22-194:~$ vim ~/.ssh/authorized_keys
 ### Now SSH from A to B. You'll be able to log in.
 ```
 ubuntu@ip-172-31-85-59:~$ ssh 172.31.22.194
+```
+
+## Password-less authentication is set up (pre-requisite for Ansible) !!
+
+### Now create a file called inventory and add the target IPs there:
+```
+ubuntu@ip-172-31-85-59:~$ cd ansible/
+ubuntu@ip-172-31-85-59:~/ansible$ vim inventory
+ubuntu@ip-172-31-85-59:~/ansible$ ls
+inventory
+ubuntu@ip-172-31-85-59:~/ansible$ cat inventory
+172.31.22.194
+```
+
+#### We can also use adhoc commands for single use
+```
+ansible -i inventory all -m "shell" -a "touch sample"
+ansible -i inventory all -m "shell" -a "df"
+ansible -i inventory all -m "shell" -a "nproc"
 ```
