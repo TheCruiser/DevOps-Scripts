@@ -38,3 +38,21 @@ put up in this format < ./script orgname reponame >
 ------------------------------------------------------------------------------------------
 
 
+# ansible_manage
+---------------------------------------------------------------------------------------------
+
+### Create 2 EC2 instances (in production scenario, one device will have the ansible script (let's consider it as A) and the other one on which it will be applied (let's consider it as B))
+
+### Log into A first and try to SSH to B
+
+```
+ubuntu@ip-172-31-85-59:~$ ssh 172.31.83.213
+The authenticity of host '172.31.83.213 (172.31.83.213)' can't be established.
+ED25519 key fingerprint is SHA256:L4DyNYmmeX8mZ2Odr3on/3szRyTyrBhX5jgHQmFLIu8.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '172.31.83.213' (ED25519) to the list of known hosts.
+ubuntu@172.31.83.213: Permission denied (publickey).
+```
+
+
