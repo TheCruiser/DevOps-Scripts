@@ -48,11 +48,41 @@ put up in this format < ./script orgname reponame >
 ```
 ubuntu@ip-172-31-85-59:~$ ssh 172.31.83.213
 The authenticity of host '172.31.83.213 (172.31.83.213)' can't be established.
-ED25519 key fingerprint is SHA256:L4DyNYmmeX8mZ2Odr3on/3szRyTyrBhX5jgHQmFLIu8.
-This key is not known by any other names
-Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '172.31.83.213' (ED25519) to the list of known hosts.
+...
 ubuntu@172.31.83.213: Permission denied (publickey).
 ```
 
+### Create SSH keygen in both A & B
 
+```
+ubuntu@ip-172-31-85-59:~$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/ubuntu/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ubuntu/.ssh/id_rsa
+Your public key has been saved in /home/ubuntu/.ssh/id_rsa.pub
+```
+```
+ubuntu@ip-172-31-22-194:~$ ssh-keygen
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/ubuntu/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/ubuntu/.ssh/id_ed25519
+Your public key has been saved in /home/ubuntu/.ssh/id_ed25519.pub
+```
+
+### Save the data of public key of A in 'authorized_keys' of B.
+
+```
+ubuntu@ip-172-31-85-59:~$ cat /home/ubuntu/.ssh/id_rsa.pub
+```
+```
+ubuntu@ip-172-31-22-194:~$ vim ~/.ssh/authorized_keys
+```
+
+### Now SSH from A to B. You'll be able to log in.
+```
+ubuntu@ip-172-31-85-59:~$ ssh 172.31.22.194
+```
