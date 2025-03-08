@@ -109,3 +109,31 @@ ansible -i inventory all -m "shell" -a "touch sample"
 ansible -i inventory all -m "shell" -a "df"
 ansible -i inventory all -m "shell" -a "nproc"
 ```
+
+## Let's consider the task as we need to install nginx and start nginx in B from A
+
+### Create a playbook file and add required configs.
+```
+vim first_playbook.yml
+```
+```
+---
+- name: Install and Start nginx
+  hosts: all
+  become: root
+
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+```
+
+### It will get created
+
+
+## Small tasks in an instance can be performed well with Ansible; while any tasks in terms of infrastructure (e.g. Creating 3 EC2 instances on AWS) can be done by Terraform.
